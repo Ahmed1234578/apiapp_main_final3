@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20">
+    <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">Pricing</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for api in apis %}
+            <div class="bg-gray-700 p-6 rounded shadow">
+                <h3 class="text-xl font-bold mb-4">{{ api.name }}</h3>
+                <p class="text-2xl font-bold mb-4">{{ api.price }} EGP</p> 
+
+                {% if 'user_id' in session %}
+                    <a class="bg-green-800 text-white py-2 px-4 rounded"
+                       href="{{ url_for('main.paymob_checkout', api_id=api.id, price=api.price) }}">
+                        Pay Now with Paymob
+                    </a>
+                {% else %}
+                    <p class="text-red-500">
+                        Please <a href="{{ url_for('main.login') }}" class="text-blue-500 hover:underline">log in</a> to purchase this package.
+                    </p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

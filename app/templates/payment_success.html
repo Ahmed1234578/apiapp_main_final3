@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Payment Successful!</h2>
+{% if api_key %}
+    <p>Your API Key: <strong>{{ api_key }}</strong></p>
+    <p>{{ message }}</p> {# This should be "Keep this key safe..." if api_key is present #}
+{% else %}
+    <p>{{ message }}</p> {# This will be "check email" or "issue generating" if api_key is None #}
+{% endif %}
+<a href="{{ url_for('main.index') }}">Go to Homepage</a>
+{% endblock %}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TRUSTIFY{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="animated-bg">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-left">Trustify</div>
+            <div class="navbar-toggle" onclick="toggleMenu()">☰</div>
+            <div class="navbar-right" id="navbar-links">
+                <a href="{{ url_for('main.index') }}" class="nav-link">Home</a>
+                <a href="{{ url_for('main.pricing') }}" class="nav-link">Pricing</a>
+                <a href="http://127.0.0.1:5002/" class="nav-link">Demo</a>
+                {% if 'user_id' not in session and 'admin_id' not in session %}
+                    <a href="{{ url_for('main.login') }}" class="nav-link">Login</a>
+                {% endif %}
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <main style="margin-top: 100px;">
+            <div class="page-buttons" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 0 20px;">
+                <button onclick="history.back()" class="cta-button" style="background-color: #444;">← Back</button>
+
+                {% if 'user_id' in session and 'admin_id' not in session %}
+                    <a href="{{ url_for('main.logout') }}" class="cta-button" style="background-color: #e63946;">Logout</a>
+                {% endif %}
+            </div>
+
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Trustify. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navbar-links');
+            navLinks.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

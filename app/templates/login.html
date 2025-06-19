@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="title">Login to Your Account</h1>
+
+    <form method="POST" action="{{ url_for('main.login') }}">
+        {{ form.hidden_tag() }}
+
+        <!-- Email -->
+        <label for="email">Email</label>
+        {{ form.email(class="form-input") }}
+        {% if form.email.errors %}
+            <p class="error">{{ form.email.errors[0] }}</p>
+        {% endif %}
+
+        <!-- Password -->
+        <label for="password">Password</label>
+        {{ form.password(class="form-input") }}
+        {% if form.password.errors %}
+            <p class="error">{{ form.password.errors[0] }}</p>
+        {% endif %}
+
+        <button type="submit" class="cta-button">Login</button>
+    </form>
+
+    <p class="text-center mt-4">
+        Don't have an account? <a href="{{ url_for('main.signup') }}" class="text-blue-400">Sign Up</a>
+    </p>
+</div>
+{% endblock %}
